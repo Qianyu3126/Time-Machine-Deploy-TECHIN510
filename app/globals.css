@@ -1,33 +1,329 @@
 @import "tailwindcss";
 
+/* Make Tailwind aware of our custom fonts so font-serif / font-typewriter etc. work */
+@theme {
+  --font-serif: var(--font-playfair), Georgia, "Times New Roman", serif;
+  --font-garamond: var(--font-garamond), Georgia, serif;
+  --font-typewriter: var(--font-special-elite), "Courier New", monospace;
+  --color-paper: #f1e6cd;
+  --color-paper-light: #f8efd9;
+  --color-cream: #ede1c2;
+  --color-sepia: #8b6f47;
+  --color-brown: #5c4a32;
+  --color-ink: #2b1f12;
+  --color-rust: #a0522d;
+  --color-gold: #c9a961;
+}
+
+/* Force light vintage palette — never inherit dark mode */
 :root {
-  --background: #ffffff;
-  --foreground: #171717;
+  color-scheme: light;
 }
 
-@theme inline {
-  --color-background: var(--background);
-  --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
-}
-
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
-  }
+html, body {
+  background-color: #f1e6cd;
+  color: #2b1f12;
 }
 
 body {
-  background: var(--background);
-  color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+  font-family: var(--font-garamond), Georgia, "Times New Roman", serif;
 }
 
-/* Larger tap target for map markers (Leaflet divIcon default has visible box) */
+/* Larger tap target for map markers */
 .leaflet-marker-icon.leaflet-touch-marker {
   background: transparent !important;
   border: none !important;
   box-shadow: none !important;
+}
+
+/* ====================================
+   VINTAGE PAGE BACKGROUND
+   ==================================== */
+.vintage-bg {
+  background-color: #f1e6cd;
+  background-image:
+    radial-gradient(at 20% 30%, rgba(139, 111, 71, 0.1) 0px, transparent 55%),
+    radial-gradient(at 80% 70%, rgba(160, 82, 45, 0.07) 0px, transparent 55%),
+    radial-gradient(at 50% 50%, rgba(201, 169, 97, 0.06) 0px, transparent 55%);
+  position: relative;
+}
+
+.vintage-bg::before {
+  content: "";
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+  z-index: 0;
+  background-image:
+    repeating-linear-gradient(
+      0deg,
+      transparent 0,
+      transparent 3px,
+      rgba(92, 74, 50, 0.018) 3px,
+      rgba(92, 74, 50, 0.018) 4px
+    ),
+    repeating-linear-gradient(
+      90deg,
+      transparent 0,
+      transparent 3px,
+      rgba(92, 74, 50, 0.012) 3px,
+      rgba(92, 74, 50, 0.012) 4px
+    );
+}
+
+/* ====================================
+   FILM EFFECTS
+   ==================================== */
+
+/* Film grain overlay (sits on top of the photo) */
+.film-grain {
+  position: relative;
+}
+
+.film-grain::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  z-index: 3;
+  background-image: url("data:image/svg+xml;utf8,<svg viewBox='0 0 220 220' xmlns='http://www.w3.org/2000/svg'><filter id='n'><feTurbulence type='fractalNoise' baseFrequency='0.95' numOctaves='3' stitchTiles='stitch'/></filter><rect width='100%25' height='100%25' filter='url(%23n)' opacity='0.55'/></svg>");
+  opacity: 0.22;
+  mix-blend-mode: multiply;
+}
+
+/* Heavier grain for older eras */
+.film-grain-heavy::after {
+  opacity: 0.42;
+}
+
+/* Vignette (darken edges) */
+.film-vignette {
+  position: relative;
+}
+
+.film-vignette::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  z-index: 2;
+  background: radial-gradient(
+    ellipse at center,
+    transparent 45%,
+    rgba(20, 14, 8, 0.55) 100%
+  );
+}
+
+/* ====================================
+   PHOTO ERA FILTERS
+   Stronger sepia + lower contrast for older photos.
+   ==================================== */
+.photo-filter-1880 { filter: sepia(0.95) contrast(0.8) brightness(0.85) saturate(0.5) hue-rotate(-8deg); }
+.photo-filter-1890 { filter: sepia(0.9) contrast(0.82) brightness(0.88) saturate(0.55) hue-rotate(-6deg); }
+.photo-filter-1900 { filter: sepia(0.85) contrast(0.85) brightness(0.9) saturate(0.6) hue-rotate(-4deg); }
+.photo-filter-1910 { filter: sepia(0.78) contrast(0.88) brightness(0.93) saturate(0.65); }
+.photo-filter-1920 { filter: sepia(0.72) contrast(0.9) brightness(0.94) saturate(0.7); }
+.photo-filter-1930 { filter: sepia(0.6) contrast(0.93) brightness(0.96) saturate(0.78); }
+.photo-filter-1940 { filter: sepia(0.5) contrast(0.95) brightness(0.97) saturate(0.82); }
+.photo-filter-1950 { filter: sepia(0.4) contrast(0.97) brightness(0.99) saturate(0.85); }
+.photo-filter-1960 { filter: sepia(0.3) contrast(1) brightness(1) saturate(0.9); }
+.photo-filter-1970 { filter: sepia(0.22) contrast(1.02) brightness(1) saturate(0.95) hue-rotate(-3deg); }
+.photo-filter-1980 { filter: sepia(0.14) contrast(1.04) brightness(1.01) saturate(1); }
+.photo-filter-1990 { filter: sepia(0.08) contrast(1.05) brightness(1.02) saturate(1.05); }
+.photo-filter-2000 { filter: contrast(1.05) brightness(1.02) saturate(1.05); }
+.photo-filter-2010 { filter: contrast(1.05) brightness(1.03) saturate(1.08); }
+
+/* ====================================
+   PHOTO FRAME (vintage print)
+   ==================================== */
+.photo-frame {
+  background: #faf2dc;
+  padding: 18px 18px 56px 18px;
+  box-shadow:
+    0 1px 0 rgba(0, 0, 0, 0.05),
+    0 6px 14px rgba(43, 31, 18, 0.28),
+    0 16px 36px rgba(43, 31, 18, 0.22),
+    inset 0 0 32px rgba(139, 111, 71, 0.1);
+  position: relative;
+}
+
+@media (max-width: 640px) {
+  .photo-frame {
+    padding: 10px 10px 40px 10px;
+  }
+}
+
+/* Decorative corner dots on the photo frame */
+.photo-frame::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  background-image:
+    radial-gradient(circle at 9px 9px, rgba(92, 74, 50, 0.22) 1.5px, transparent 2.5px),
+    radial-gradient(circle at calc(100% - 9px) 9px, rgba(92, 74, 50, 0.22) 1.5px, transparent 2.5px),
+    radial-gradient(circle at 9px calc(100% - 35px), rgba(92, 74, 50, 0.22) 1.5px, transparent 2.5px),
+    radial-gradient(circle at calc(100% - 9px) calc(100% - 35px), rgba(92, 74, 50, 0.22) 1.5px, transparent 2.5px);
+  background-repeat: no-repeat;
+}
+
+.photo-tilt {
+  transform: rotate(-0.4deg);
+  transition: transform 0.5s ease;
+}
+.photo-tilt:hover {
+  transform: rotate(0deg) scale(1.005);
+}
+
+/* ====================================
+   DECORATIVE RULES
+   ==================================== */
+.vintage-rule {
+  border: none;
+  height: 6px;
+  background:
+    linear-gradient(to bottom,
+      #5c4a32 0,
+      #5c4a32 1px,
+      transparent 1px,
+      transparent 4px,
+      #5c4a32 4px,
+      #5c4a32 5px,
+      transparent 5px
+    );
+  opacity: 0.55;
+}
+
+/* ====================================
+   HORIZONTAL TIMELINE
+   ==================================== */
+
+/* The thin line that runs across the page */
+.timeline-line {
+  height: 2px;
+  background-image: linear-gradient(
+    to right,
+    transparent 0%,
+    rgba(92, 74, 50, 0.5) 8%,
+    rgba(92, 74, 50, 0.5) 92%,
+    transparent 100%
+  );
+}
+
+.timeline-dot {
+  width: 14px;
+  height: 14px;
+  border-radius: 50%;
+  background: #faf2dc;
+  border: 2px solid #5c4a32;
+  position: relative;
+  z-index: 2;
+  transition: all 0.3s ease;
+  box-shadow: 0 0 0 4px #f1e6cd;
+}
+
+.timeline-node:hover .timeline-dot {
+  background: #a0522d;
+  transform: scale(1.18);
+}
+
+.timeline-node.active .timeline-dot {
+  background: #a0522d;
+  border-color: #2b1f12;
+  width: 22px;
+  height: 22px;
+  box-shadow:
+    0 0 0 4px #f1e6cd,
+    0 0 0 6px #a0522d,
+    0 0 14px rgba(160, 82, 45, 0.5);
+}
+
+.timeline-year {
+  font-family: var(--font-special-elite), "Courier New", monospace;
+  font-size: 0.78rem;
+  letter-spacing: 0.08em;
+  color: #8b6f47;
+  transition: all 0.3s ease;
+  white-space: nowrap;
+}
+
+.timeline-node.active .timeline-year {
+  color: #2b1f12;
+  font-weight: 700;
+  font-size: 0.95rem;
+  letter-spacing: 0.12em;
+}
+
+@media (max-width: 640px) {
+  .timeline-year {
+    font-size: 0.7rem;
+  }
+  .timeline-node.active .timeline-year {
+    font-size: 0.78rem;
+  }
+}
+
+/* ====================================
+   TYPOGRAPHY HELPERS
+   ==================================== */
+.heading-serif {
+  font-family: var(--font-playfair), Georgia, "Times New Roman", serif;
+  color: #2b1f12;
+  letter-spacing: -0.012em;
+}
+
+.body-serif {
+  font-family: var(--font-garamond), Georgia, serif;
+  color: #5c4a32;
+}
+
+.caption-typewriter {
+  font-family: var(--font-special-elite), "Courier New", monospace;
+  letter-spacing: 0.05em;
+  color: #2b1f12;
+}
+
+.era-year {
+  font-family: var(--font-playfair), Georgia, serif;
+  font-style: italic;
+  font-weight: 700;
+  color: #2b1f12;
+  text-shadow: 1px 1px 0 rgba(201, 169, 97, 0.3);
+  line-height: 1;
+}
+
+/* ====================================
+   VINTAGE BUTTON
+   ==================================== */
+.vintage-btn {
+  display: inline-flex;
+  align-items: center;
+  background: #faf2dc;
+  color: #2b1f12;
+  border: 1px solid #5c4a32;
+  font-family: var(--font-special-elite), "Courier New", monospace;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  font-size: 0.75rem;
+  padding: 9px 18px;
+  cursor: pointer;
+  transition: transform 0.15s ease, box-shadow 0.15s ease;
+  box-shadow:
+    0 2px 0 #5c4a32,
+    inset 0 0 12px rgba(201, 169, 97, 0.15);
+}
+
+.vintage-btn:hover {
+  background: #f8efd9;
+  transform: translateY(-1px);
+  box-shadow:
+    0 3px 0 #5c4a32,
+    inset 0 0 16px rgba(201, 169, 97, 0.2);
+}
+
+.vintage-btn:active {
+  transform: translateY(1px);
+  box-shadow:
+    0 1px 0 #5c4a32,
+    inset 0 0 12px rgba(201, 169, 97, 0.25);
 }

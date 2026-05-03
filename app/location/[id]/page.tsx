@@ -1,5 +1,7 @@
 import Link from "next/link";
 import { locations } from "@/data/locations";
+import { photos } from "@/data/photos";
+import { Timeline } from "@/components/Timeline";
 
 type PageProps = {
   params: Promise<{ id: string }>;
@@ -13,39 +15,87 @@ function findLocationByParamId(idParam: string) {
   return locations.find((loc) => loc.id === id);
 }
 
+function getPhotosByLocationId(locationId: number) {
+  return photos.filter((photo) => photo.locationId === locationId);
+}
+
 export default async function LocationPage({ params }: PageProps) {
   const { id: idParam } = await params;
   const location = findLocationByParamId(idParam);
+  const locationPhotos = location ? getPhotosByLocationId(location.id) : [];
+
+  const yearRange =
+    locationPhotos.length > 0
+      ? `${Math.min(...locationPhotos.map((p) => p.year))} – ${Math.max(
+          ...locationPhotos.map((p) => p.year)
+        )}`
+      : null;
 
   return (
-    <div className="min-h-screen bg-zinc-950 text-zinc-100">
-      <div className="mx-auto max-w-3xl px-4 py-8 sm:px-6 lg:px-8">
-        <Link
-          href="/"
-          className="inline-flex items-center rounded-md border border-zinc-700 bg-zinc-900 px-3 py-2 text-sm font-medium text-zinc-100 transition-colors hover:border-zinc-600 hover:bg-zinc-800"
-        >
-          ← Back
-        </Link>
-
-        {!location ? (
-          <p className="mt-10 text-lg text-zinc-400">Location not found</p>
-        ) : (
-          <article className="mt-10">
-            <h1 className="text-3xl font-bold tracking-tight text-zinc-50 sm:text-4xl">
-              {location.name}
-            </h1>
-            <p className="mt-6 text-lg leading-relaxed text-zinc-300">
-              {location.description}
+    <div className="vintage-bg min-h-screen relative">
+      <div className="relative z-10">
+        {/* Top navigation bar — like a journal header */}
+        <header className="border-b-2 border-double border-[#5c4a32]/70 bg-[#faf2dc]/70 backdrop-blur-sm">
+          <div className="mx-auto max-w-6xl px-4 sm:px-6 lg:px-8 py-3 sm:py-4 flex items-center justify-between gap-4">
+            <Link href="/" className="vintage-btn shrink-0">
+              ← Back
+            </Link>
+            <p className="caption-typewriter hidden sm:block text-[10px] sm:text-xs uppercase tracking-[0.3em] text-[#8b6f47]">
+              ✦ The Time Machine ✦
             </p>
-            <div
-              className="mt-10 rounded-xl border border-zinc-700 bg-zinc-900/80 px-6 py-10 text-center text-xl font-semibold text-zinc-200 shadow-lg sm:text-2xl"
-              role="status"
-              aria-live="polite"
-            >
-              📸 Timeline coming soon...
+            <div className="caption-typewriter text-[10px] sm:text-xs uppercase tracking-[0.2em] text-[#8b6f47] shrink-0">
+              {yearRange ?? 'Archive'}
             </div>
-          </article>
-        )}
+          </div>
+        </header>
+
+        <main className="mx-auto max-w-6xl px-3 sm:px-6 lg:px-8 py-10 sm:py-14 lg:py-16">
+          {!location ? (
+            <div className="text-center py-24">
+              <p className="heading-serif text-3xl italic mb-4">
+                Location not found
+              </p>
+              <p className="body-serif">Perhaps it has been lost to time…</p>
+            </div>
+          ) : (
+            <article className="space-y-10 sm:space-y-14">
+              {/* Title block — like an old book title page */}
+              <div className="text-center space-y-3 sm:space-y-4">
+                <p className="caption-typewriter text-[10px] sm:text-xs uppercase tracking-[0.4em] text-[#8b6f47]">
+                  ── A Visual Chronicle of ──
+                </p>
+                <h1 className="heading-serif text-4xl sm:text-5xl lg:text-7xl font-bold italic px-2">
+                  {location.name}
+                </h1>
+                <hr className="vintage-rule mx-auto max-w-md" />
+                <p className="body-serif text-base sm:text-lg lg:text-xl leading-relaxed italic max-w-2xl mx-auto pt-2 sm:pt-4 px-3">
+                  {location.description}
+                </p>
+              </div>
+
+              {/* Timeline section */}
+              <div className="pt-4 sm:pt-8">
+                {locationPhotos.length > 0 ? (
+                  <Timeline photos={locationPhotos} />
+                ) : (
+                  <div className="rounded border border-[#5c4a32] bg-[#faf2dc] px-6 py-12 text-center">
+                    <p className="body-serif text-xl italic">
+                      No historical photographs in our archive yet…
+                    </p>
+                  </div>
+                )}
+              </div>
+
+              {/* Footer note */}
+              <footer className="pt-6 sm:pt-8 text-center">
+                <hr className="vintage-rule mx-auto max-w-md mb-5 sm:mb-6" />
+                <p className="caption-typewriter text-[10px] sm:text-xs uppercase tracking-[0.3em] text-[#8b6f47]">
+                  ✦ End of the chronicle ✦
+                </p>
+              </footer>
+            </article>
+          )}
+        </main>
       </div>
     </div>
   );
