@@ -166,17 +166,18 @@ export function Timeline({ photos }: TimelineProps) {
           &ldquo;{currentPhoto.caption}&rdquo;
         </p>
 
-        <p className="caption-typewriter text-[10px] sm:text-xs text-[#8b6f47] pt-2">
-          From the archives of{' '}
+        {/* Subtle attribution — like a tiny stamp at the corner of an old print */}
+        <div className="flex justify-end pt-1 max-w-xl mx-auto">
           <a
             href={currentPhoto.sourceUrl}
             target="_blank"
             rel="noopener noreferrer"
-            className="underline decoration-dotted underline-offset-4 hover:text-[#a0522d]"
+            title={`View source: ${currentPhoto.source}`}
+            className="caption-typewriter text-[9px] sm:text-[10px] tracking-[0.18em] text-[#8b6f47]/60 hover:text-[#a0522d] transition-colors decoration-dotted underline-offset-[3px] hover:underline"
           >
-            {currentPhoto.source}
+            © {currentPhoto.source}
           </a>
-        </p>
+        </div>
       </article>
 
       {/* ============================================
