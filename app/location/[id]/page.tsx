@@ -35,15 +35,15 @@ export default async function LocationPage({ params }: PageProps) {
     <div className="vintage-bg min-h-screen relative">
       <div className="relative z-10">
         {/* Top navigation bar — like a journal header */}
-        <header className="border-b-2 border-double border-[#5c4a32]/70 bg-[#faf2dc]/70 backdrop-blur-sm">
-          <div className="mx-auto max-w-6xl px-4 sm:px-6 lg:px-8 py-3 sm:py-4 flex items-center justify-between gap-4">
+        <header className="border-b border-zinc-800 bg-zinc-950">
+          <div className="mx-auto flex h-14 max-w-6xl items-center justify-between gap-4 px-3 sm:px-6 lg:px-8">
             <Link href="/" className="vintage-btn shrink-0">
               ← Back
             </Link>
-            <p className="caption-typewriter hidden sm:block text-[10px] sm:text-xs uppercase tracking-[0.3em] text-[#8b6f47]">
+            <p className="caption-typewriter gold-foil hidden text-[11px] uppercase tracking-[0.3em] sm:block sm:text-sm">
               ✦ The Time Machine ✦
             </p>
-            <div className="caption-typewriter text-[10px] sm:text-xs uppercase tracking-[0.2em] text-[#8b6f47] shrink-0">
+            <div className="caption-typewriter gold-foil shrink-0 text-[11px] uppercase tracking-[0.2em] sm:text-sm">
               {yearRange ?? 'Archive'}
             </div>
           </div>

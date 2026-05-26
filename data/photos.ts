@@ -225,4 +225,92 @@ export const photos: HistoricalPhoto[] = [
     sourceUrl:
       'https://commons.wikimedia.org/wiki/File:Capitol_Hill_as_seen_from_9th_and_Pine_looking_east_towards_Bellevue,_WA.jpg',
   },
+
+  // ============================
+  // Gas Works Park (id 6)
+  // ============================
+  {
+    id: 21,
+    locationId: 6,
+    year: 1906,
+    caption:
+      'The Seattle Gas Light Company plant on the north shore of Lake Union in its first year of operation, producing manufactured gas from coal.',
+    imageUrl: '/images/gas_works_park_1906.jpg',
+    source: 'HistoryLink',
+    sourceUrl: 'https://www.historylink.org/file/1801',
+  },
+  {
+    id: 22,
+    locationId: 6,
+    year: 1969,
+    caption:
+      'The derelict Seattle Gas Light Company plant in the years after its 1956 closure, with rusting towers and generators left standing on the Lake Union shore before redevelopment began.',
+    imageUrl: '/images/gas_works_park_1969.jpg',
+    source: 'HistoryLink',
+    sourceUrl: 'https://www.historylink.org/file/1801',
+  },
+  {
+    id: 23,
+    locationId: 6,
+    year: 1975,
+    caption:
+      "Gas Works Park on opening day, with Richard Haag's preserved industrial structures repurposed as the centerpiece of a public landscape.",
+    imageUrl: '/images/gas_works_park_1975.png',
+    source: 'Wikimedia Commons',
+    sourceUrl: 'https://commons.wikimedia.org/wiki/Category:Gas_Works_Park',
+  },
+  {
+    id: 24,
+    locationId: 6,
+    year: 2010,
+    caption:
+      'Contemporary Gas Works Park with its kite hill, sundial, and rusted gasification towers framed against the Seattle skyline.',
+    imageUrl: '/images/gas_works_park_2010.jpg',
+    source: 'Wikimedia Commons',
+    sourceUrl: 'https://commons.wikimedia.org/wiki/Category:Gas_Works_Park',
+  },
+
+  // ============================
+  // Seattle Waterfront (id 7)
+  // ============================
+  {
+    id: 25,
+    locationId: 7,
+    year: 1900,
+    caption:
+      'The Elliott Bay waterfront crowded with wooden piers, sailing vessels, and steamers during the Klondike Gold Rush boom.',
+    imageUrl: '/images/seattle_waterfront_1900.jpg',
+    source: 'Wikimedia Commons',
+    sourceUrl: 'https://commons.wikimedia.org/wiki/Category:History_of_the_Seattle_waterfront',
+  },
+  {
+    id: 26,
+    locationId: 7,
+    year: 1935,
+    caption:
+      'Seattle Waterfront in the interwar years, lined with cargo piers, the Colman Dock ferry terminal, and the Northern Pacific railway along Railroad Avenue.',
+    imageUrl: '/images/seattle_waterfront_1935.jpg',
+    source: 'MOHAI Archives',
+    sourceUrl: 'https://mohai.org/',
+  },
+  {
+    id: 27,
+    locationId: 7,
+    year: 1970,
+    caption:
+      'The waterfront beneath the Alaskan Way Viaduct, with Ivar\'s, the Seattle Aquarium site, and tourist piers replacing much of the working maritime industry.',
+    imageUrl: '/images/seattle_waterfront_1970.jpg',
+    source: 'HistoryLink',
+    sourceUrl: 'https://www.historylink.org/file/2916',
+  },
+  {
+    id: 28,
+    locationId: 7,
+    year: 2015,
+    caption:
+      'The modern Seattle Waterfront with the Great Wheel, restored piers, and the early stages of the post-viaduct promenade redevelopment.',
+    imageUrl: '/images/seattle_waterfront_2015.jpg',
+    source: 'Wikimedia Commons',
+    sourceUrl: 'https://commons.wikimedia.org/wiki/Category:Seattle_waterfront',
+  },
 ]

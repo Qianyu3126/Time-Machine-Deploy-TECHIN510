@@ -41,4 +41,20 @@ export const locations: Location[] = [
     description:
       "Capitol Hill rose as a streetcar-era neighborhood in the early 1900s and became an enduring hub of Seattle's residential, nightlife, and counterculture history.",
   },
+  {
+    id: 6,
+    name: 'Gas Works Park',
+    lat: 47.6456,
+    lng: -122.3344,
+    description:
+      "Gas Works Park occupies the site of the Seattle Gas Light Company's coal gasification plant, which operated from 1906 to 1956 before landscape architect Richard Haag transformed the industrial ruins into a public park that opened in 1975.",
+  },
+  {
+    id: 7,
+    name: 'Seattle Waterfront',
+    lat: 47.6062,
+    lng: -122.3421,
+    description:
+      "Stretching along Elliott Bay, the Seattle Waterfront has anchored the city's maritime, shipping, and fishing trades since the late 1800s, with its piers, ferry terminals, and promenades shaping Seattle's connection to Puget Sound.",
+  },
 ]

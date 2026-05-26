@@ -17,11 +17,11 @@ export default function Home() {
     <div className="flex min-h-screen flex-col bg-zinc-950 text-zinc-100">
       <header className="shrink-0 border-b border-zinc-800 bg-zinc-950">
         <nav
-          className="mx-auto flex h-14 min-w-0 max-w-7xl items-center gap-2 px-3 sm:px-6 lg:px-8"
+          className="mx-auto flex h-14 min-w-0 max-w-7xl items-center justify-center px-3 sm:px-6 lg:px-8"
           aria-label="Primary"
         >
-          <h1 className="min-w-0 truncate text-base font-semibold tracking-tight text-zinc-100 sm:text-lg">
-            Time Machine
+          <h1 className="caption-typewriter gold-foil text-[11px] uppercase tracking-[0.3em] sm:text-sm">
+            ✦ The Time Machine ✦
           </h1>
         </nav>
       </header>

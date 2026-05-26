@@ -36,6 +36,39 @@ body {
   box-shadow: none !important;
 }
 
+/* Bump tile contrast/saturation a touch so Voyager pops more */
+.leaflet-tile-pane {
+  filter: contrast(1.12) saturate(1.08) brightness(0.97);
+}
+
+/* ====================================
+   VINTAGE BRASS MARKER + HOVER
+   Outer .vintage-marker is positioned by Leaflet (do NOT transform it).
+   The inner wrapper handles the hover animation.
+   ==================================== */
+.vintage-marker {
+  cursor: pointer;
+}
+.vintage-marker .vintage-marker-inner {
+  display: block;
+  width: 100%;
+  height: 100%;
+  transform-origin: 50% 100%; /* scale from the pin tip */
+  transition:
+    transform 0.28s cubic-bezier(0.34, 1.56, 0.64, 1),
+    filter 0.25s ease;
+  filter: drop-shadow(0 2px 3px rgba(0, 0, 0, 0.35));
+}
+.vintage-marker:hover {
+  z-index: 1000 !important; /* lift over neighboring pins on hover */
+}
+.vintage-marker:hover .vintage-marker-inner {
+  transform: scale(1.22) translateY(-3px);
+  filter:
+    drop-shadow(0 6px 9px rgba(0, 0, 0, 0.45))
+    drop-shadow(0 0 7px rgba(232, 198, 104, 0.75));
+}
+
 /* ====================================
    VINTAGE PAGE BACKGROUND
    ==================================== */
@@ -290,6 +323,67 @@ body {
   color: #2b1f12;
   text-shadow: 1px 1px 0 rgba(201, 169, 97, 0.3);
   line-height: 1;
+}
+
+/* ====================================
+   MUSIC TOGGLE (floating brass disc)
+   Pairs with the brass map marker colors for thematic consistency.
+   ==================================== */
+.music-toggle {
+  position: fixed;
+  right: 1.25rem;
+  bottom: 1.25rem;
+  width: 52px;
+  height: 52px;
+  border-radius: 9999px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  color: #2b1f12;
+  background: radial-gradient(
+    circle at 35% 28%,
+    #fff6cf 0%,
+    #f0d488 30%,
+    #bf975a 70%,
+    #8a6c34 100%
+  );
+  border: 1.3px solid #6b5430;
+  box-shadow:
+    0 4px 10px rgba(43, 31, 18, 0.35),
+    inset 0 0 18px rgba(255, 246, 207, 0.25);
+  cursor: pointer;
+  z-index: 1000;
+  transition:
+    transform 0.2s cubic-bezier(0.34, 1.56, 0.64, 1),
+    box-shadow 0.2s ease;
+}
+.music-toggle:hover {
+  transform: scale(1.08) translateY(-2px);
+  box-shadow:
+    0 8px 14px rgba(43, 31, 18, 0.45),
+    0 0 12px rgba(232, 198, 104, 0.65),
+    inset 0 0 22px rgba(255, 246, 207, 0.3);
+}
+.music-toggle:active {
+  transform: scale(0.96);
+}
+.music-toggle:focus-visible {
+  outline: 2px solid #8a6c34;
+  outline-offset: 3px;
+}
+
+/* ====================================
+   GOLD FOIL TEXT (for dark nav headings)
+   ==================================== */
+.gold-foil {
+  /* Use !important to win over .caption-typewriter color */
+  color: #ffd97a !important;
+  -webkit-text-fill-color: #ffd97a;
+  text-shadow:
+    0 0 1px rgba(255, 240, 180, 1),
+    0 0 6px rgba(255, 210, 120, 0.55),
+    0 0 14px rgba(255, 190, 90, 0.35),
+    0 1px 0 rgba(0, 0, 0, 0.7);
 }
 
 /* ====================================
