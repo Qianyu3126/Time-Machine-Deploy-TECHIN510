@@ -1,9 +1,6 @@
 {
   "buildCommand": "npm run build",
   "outputDirectory": ".next",
-  "env": {
-    "NEXT_PUBLIC_DOMAIN": "@NEXT_PUBLIC_DOMAIN"
-  },
   "headers": [
     {
       "source": "/public/(.*)",
